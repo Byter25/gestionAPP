@@ -6,20 +6,19 @@ from src.views.home import Home
 class AppLayout(Row):
   def __init__(self,page: Page, *args, **kwargs):
     super().__init__(*args, **kwargs)
+    
     self.app = app
     self.page = page
     self.sidebar = Slidebar(self, page)
-    
-    self.toggle_nav_rail_button = IconButton(
+    self.esconder_button = IconButton(
       icon=icons.ARROW_CIRCLE_LEFT, icon_color=colors.BLUE_GREY_400, selected=False,
-      selected_icon=icons.ARROW_CIRCLE_RIGHT, on_click=self.toggle_nav_rail
+      selected_icon=icons.ARROW_CIRCLE_RIGHT, on_click=self.esconder
       )
-    
     self._active_view: Control = Home(page)
     
     self.controls = [
       self.sidebar,
-      self.toggle_nav_rail_button, 
+      self.esconder_button, 
       self.active_view
       ]
       
@@ -32,12 +31,16 @@ class AppLayout(Row):
     self._active_view = view
     self.update()
  
-  def toggle_nav_rail(self, e):
+  def esconder(self):
     self.sidebar.visible = not self.sidebar.visible
-    self.toggle_nav_rail_button.selected = not self.toggle_nav_rail_button.selected
+    self.esconder_button.selected = not self.esconder_button.selected
     self.page.update()
-
     
+  def cambiar_vista(self):
+    if self.sidebar.rail_bar.selected_index == 0:
+      return Home(self.page)
+    if self.sidebar.rail_bar.selected_index == 1:
+      return Settings(self.page)
 
 # class Router:
 #   def __init__(self,page) 

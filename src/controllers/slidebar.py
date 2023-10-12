@@ -1,12 +1,13 @@
 from flet import *
 from src.controllers.loginDialog import LoginDialog
 from src.views.home import Home 
-
+from src.views.settings import Settings
 class Slidebar(UserControl):
   def __init__(self, layout, page):
     super().__init__()
     self.layout = layout
     self.page = page
+    
     self.rail_items = [
       NavigationRailDestination(
         label_content=Text("Boards"),
@@ -36,7 +37,7 @@ class Slidebar(UserControl):
     self.view = Container(
       content=Column([
         Row([Text("Workspace")],alignment="center"),
-              # divider
+        # divider
         Container(
           bgcolor=colors.BLACK26,
           border_radius=border_radius.all(30),
@@ -45,7 +46,7 @@ class Slidebar(UserControl):
           width=220
           ),
         self.rail_bar,
-              # divider
+        # divider
         Container(
           bgcolor=colors.BLACK26,
           border_radius=border_radius.all(30),
@@ -64,8 +65,5 @@ class Slidebar(UserControl):
     return self.view
   
   def top_nav_change(self, e):
-      self.rail_bar.selected_index = e.control.selected_index
-      self.update()
-
-  
-  
+    self.rail_bar.selected_index = e.control.selected_index
+    self.update()
